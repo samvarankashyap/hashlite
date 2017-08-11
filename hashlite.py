@@ -1,27 +1,7 @@
 import os
 import json
-
-def wrap(pre, post):
-    def decorate(func):
-        def call(*args, **kwargs):
-            pre(func, *args, **kwargs)
-            result = func(*args, **kwargs)
-            post(func, *args, **kwargs)
-            return result
-        return call
-    return decorate
-
-def savedb(func, *args, **kwargs):
-    db_obj = args[0]
-    path = db_obj.path
-    fd = open(db_obj.path, "w")
-    fd.write(json.dumps(db_obj.db, sort_keys=True, indent=4))
-    fd.close()
-
-def loaddb(func, *args, **kwargs):
-    fd = open(args[0].path, "r").read()
-    args[0].db = json.loads(fd)
-
+from decorators import wrap
+from utils import savedb, loaddb
 
 class hashlite:
     def __init__(self, path, reset=False):

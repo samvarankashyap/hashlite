@@ -191,3 +191,6 @@ class Hashlite:
     def emptydb(self):
         self.db = {}
         return True
+
+def runcli():
+  print("Welcome to hashlite db shell")
